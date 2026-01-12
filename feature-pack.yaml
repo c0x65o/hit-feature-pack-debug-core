@@ -21,6 +21,16 @@ routes:
     roles: []
     default_roles_allow: [admin]
     authz: { entity: debug, verb: read }
+  - path: /admin/debug/ui-specs
+    page: UiSpecsList
+    roles: []
+    default_roles_allow: [admin]
+    authz: { entity: debug, verb: read }
+  - path: /admin/debug/ui-specs/[entityKey]
+    page: UiSpecsDetail
+    roles: []
+    default_roles_allow: [admin]
+    authz: { entity: debug, verb: read }
 
 # ─────────────────────────────────────────────────────────────────────────────
 # NAV - Navigation entries
@@ -53,6 +63,13 @@ nav:
         path: /admin/debug/dashboard-state
         icon: LayoutDashboard
         weight: 30
+        roles: [admin]
+        showWhen: authenticated
+      - id: debug-ui-specs
+        label: UI Specs
+        path: /admin/debug/ui-specs
+        icon: Table
+        weight: 40
         roles: [admin]
         showWhen: authenticated
 

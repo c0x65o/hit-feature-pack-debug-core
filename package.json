@@ -1,6 +1,6 @@
 {
   "name": "@hit/feature-pack-debug-core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Debug utilities for system administrators",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,6 +31,7 @@
   "files": [
     "dist",
     "src",
+    "ui",
     "feature-pack.yaml"
   ],
   "scripts": {

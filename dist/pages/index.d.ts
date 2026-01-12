@@ -7,4 +7,6 @@
 export { ServerStats, default as ServerStatsPage } from './ServerStats';
 export { DbStats, default as DbStatsPage } from './DbStats';
 export { DashboardState, default as DashboardStatePage } from './DashboardState';
+export { UiSpecsList, default as UiSpecsListPage } from './UiSpecsList';
+export { UiSpecsDetail, default as UiSpecsDetailPage } from './UiSpecsDetail';
 //# sourceMappingURL=index.d.ts.map

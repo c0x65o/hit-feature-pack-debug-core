@@ -1,0 +1,114 @@
+version: 1
+
+# UI entity spec for the debug UI specs browser.
+# This is a "virtual" entity - data comes from /hit-ui-specs.json, not a database table.
+entities:
+  debug.uiSpec:
+    meta:
+      titleSingular: UI Spec
+      titlePlural: UI Specs
+      descriptionPlural: Public UI entities from /hit-ui-specs.json
+      routes:
+        root: /admin/debug
+        list: /admin/debug/ui-specs
+        detail: /admin/debug/ui-specs/{entityKey}
+      breadcrumbs:
+        - { label: Debug, href: /admin/debug }
+        - { label: UI Specs, href: /admin/debug/ui-specs }
+
+    list:
+      tableId: debug.uiSpecs
+      uiStateVersion: 1
+      mobileColumnKeys: [entityKey, tableId]
+      pageSize: 50
+      initialSort:
+        sortBy: entityKey
+        sortOrder: asc
+      sortWhitelist:
+        - entityKey
+        - tableId
+        - drizzleTable
+        - listColumnCount
+        - formFieldCount
+      initialColumnVisibility:
+        entityKey: true
+        tableId: true
+        drizzleTable: true
+        listColumnCount: true
+        formFieldCount: true
+      initialSorting:
+        - id: entityKey
+          desc: false
+      columns:
+        - key: entityKey
+          label: Entity
+          sortable: true
+          filterType: string
+        - key: tableId
+          label: tableId
+          sortable: true
+          filterType: string
+        - key: drizzleTable
+          label: drizzleTable
+          sortable: true
+          filterType: string
+        - key: listColumnCount
+          label: "# list cols"
+          sortable: true
+          filterType: number
+        - key: formFieldCount
+          label: "# form fields"
+          sortable: true
+          filterType: number
+
+    detail:
+      # Sub-tables for the detail view
+      listColumns:
+        tableId: debug.uiSpecs.listColumns
+        mobileColumnKeys: [key, label]
+        columns:
+          - key: key
+            label: key
+            sortable: true
+            filterType: string
+          - key: label
+            label: label
+            sortable: false
+            filterType: string
+          - key: filterType
+            label: filterType
+            sortable: false
+            filterType: string
+          - key: sortable
+            label: sortable
+            sortable: false
+            filterType: boolean
+          - key: reference
+            label: reference
+            sortable: false
+            filterType: string
+
+      formFields:
+        tableId: debug.uiSpecs.formFields
+        mobileColumnKeys: [key, label]
+        columns:
+          - key: key
+            label: key
+            sortable: true
+            filterType: string
+          - key: label
+            label: label
+            sortable: false
+            filterType: string
+          - key: type
+            label: type
+            sortable: false
+            filterType: string
+          - key: required
+            label: required
+            sortable: false
+            filterType: boolean
+          - key: extra
+            label: extra
+            sortable: false
+            filterType: string
