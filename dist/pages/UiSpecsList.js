@@ -83,22 +83,20 @@ export function UiSpecsList({ onNavigate }) {
         for (const entityKey of Object.keys(entities || {}).sort()) {
             const entity = asRecord(entities?.[entityKey]) || {};
             const list = asRecord(entity.list) || null;
-            const form = asRecord(entity.form) || null;
             const storage = asRecord(entity.storage) || null;
+            const fields = asRecord(entity.fields) || null;
             const drizzleTable = (storage && typeof storage.drizzleTable === 'string' ? storage.drizzleTable : '') ||
                 (typeof entity.drizzleTable === 'string' ? String(entity.drizzleTable) : '');
             const tableId = list && typeof list.tableId === 'string' ? list.tableId : '';
             const listColumns = normalizeColumns(list?.columns);
-            const formFields = Array.isArray(form?.fields)
-                ? (form?.fields).filter((f) => f && typeof f === 'object' && f.key)
-                : [];
+            const fieldCount = fields ? Object.keys(fields).length : 0;
             out.push({
                 id: entityKey, // use entityKey as ID
                 entityKey,
                 drizzleTable,
                 tableId,
                 listColumnCount: listColumns.length,
-                formFieldCount: formFields.length,
+                fieldCount,
             });
         }
         return out;
@@ -112,7 +110,7 @@ export function UiSpecsList({ onNavigate }) {
             { key: 'tableId', label: 'tableId', sortable: true, filterType: 'string' },
             { key: 'drizzleTable', label: 'drizzleTable', sortable: true, filterType: 'string' },
             { key: 'listColumnCount', label: '# list cols', sortable: true, filterType: 'number' },
-            { key: 'formFieldCount', label: '# form fields', sortable: true, filterType: 'number' },
+            { key: 'fieldCount', label: '# fields', sortable: true, filterType: 'number' },
         ];
         let cols = specCols.length > 0 ? specCols : fallback;
         // Filter for mobile

@@ -17,7 +17,7 @@ type EntityRow = {
   drizzleTable: string;
   tableId: string;
   listColumnCount: number;
-  formFieldCount: number;
+  fieldCount: number;
 };
 
 function asRecord(v: unknown): Record<string, any> | null {
@@ -106,8 +106,8 @@ export function UiSpecsList({ onNavigate }: UiSpecsListProps) {
     for (const entityKey of Object.keys(entities || {}).sort()) {
       const entity = asRecord(entities?.[entityKey]) || {};
       const list = asRecord(entity.list) || null;
-      const form = asRecord(entity.form) || null;
       const storage = asRecord(entity.storage) || null;
+      const fields = asRecord(entity.fields) || null;
 
       const drizzleTable =
         (storage && typeof storage.drizzleTable === 'string' ? storage.drizzleTable : '') ||
@@ -115,9 +115,7 @@ export function UiSpecsList({ onNavigate }: UiSpecsListProps) {
       const tableId = list && typeof list.tableId === 'string' ? list.tableId : '';
 
       const listColumns = normalizeColumns(list?.columns);
-      const formFields = Array.isArray(form?.fields)
-        ? (form?.fields as any[]).filter((f) => f && typeof f === 'object' && (f as any).key)
-        : [];
+      const fieldCount = fields ? Object.keys(fields).length : 0;
 
       out.push({
         id: entityKey, // use entityKey as ID
@@ -125,7 +123,7 @@ export function UiSpecsList({ onNavigate }: UiSpecsListProps) {
         drizzleTable,
         tableId,
         listColumnCount: listColumns.length,
-        formFieldCount: formFields.length,
+        fieldCount,
       });
     }
     return out;
@@ -141,7 +139,7 @@ export function UiSpecsList({ onNavigate }: UiSpecsListProps) {
       { key: 'tableId', label: 'tableId', sortable: true, filterType: 'string' },
       { key: 'drizzleTable', label: 'drizzleTable', sortable: true, filterType: 'string' },
       { key: 'listColumnCount', label: '# list cols', sortable: true, filterType: 'number' },
-      { key: 'formFieldCount', label: '# form fields', sortable: true, filterType: 'number' },
+      { key: 'fieldCount', label: '# fields', sortable: true, filterType: 'number' },
     ];
 
     let cols = specCols.length > 0 ? specCols : fallback;

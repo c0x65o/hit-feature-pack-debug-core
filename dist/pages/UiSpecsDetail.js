@@ -119,12 +119,12 @@ export function UiSpecsDetail({ onNavigate }) {
             };
         });
     }, [entity]);
-    // Build form fields rows
-    const formFieldsRows = useMemo(() => {
-        const form = asRecord(entity?.form) || null;
-        const arr = Array.isArray(form?.fields) ? form?.fields : [];
-        const filtered = arr.filter((f) => f && typeof f === 'object' && f.key);
-        return filtered.map((f, idx) => {
+    // Build fields rows (canonical entities.<key>.fields map)
+    const fieldsRows = useMemo(() => {
+        const fields = asRecord(entity?.fields) || null;
+        const entries = fields ? Object.entries(fields) : [];
+        return entries.map(([key, fieldAny], idx) => {
+            const f = asRecord(fieldAny) || {};
             const ref = asRecord(f.reference);
             const extra = [
                 f.optionSource ? `optionSource=${String(f.optionSource)}` : null,
@@ -133,8 +133,8 @@ export function UiSpecsDetail({ onNavigate }) {
                 .filter(Boolean)
                 .join(' ');
             return {
-                id: `${f.key}-${idx}`,
-                key: String(f.key || ''),
+                id: `${key}-${idx}`,
+                key: String(key || ''),
                 label: f.label ? String(f.label) : '',
                 type: f.type ? String(f.type) : '',
                 required: typeof f.required === 'boolean' ? String(f.required) : '',
@@ -165,9 +165,9 @@ export function UiSpecsDetail({ onNavigate }) {
             sortable: c.sortable !== false,
         }));
     }, [detailSpec, isMobile]);
-    // Columns for formFields table
-    const formFieldsColumns = useMemo(() => {
-        const tableSpec = asRecord(detailSpec.formFields) || {};
+    // Columns for fields table
+    const fieldsColumns = useMemo(() => {
+        const tableSpec = asRecord(detailSpec.fields) || {};
         const specCols = normalizeColumns(tableSpec.columns);
         const mobileKeys = tableSpec.mobileColumnKeys;
         const fallback = [
@@ -206,7 +206,7 @@ export function UiSpecsDetail({ onNavigate }) {
     const tableId = asRecord(entity.list)?.tableId ? String(asRecord(entity.list)?.tableId) : '—';
     const drizzleTable = asRecord(entity.storage)?.drizzleTable ? String(asRecord(entity.storage)?.drizzleTable) : '—';
     const listColumnsTableSpec = asRecord(detailSpec.listColumns) || {};
-    const formFieldsTableSpec = asRecord(detailSpec.formFields) || {};
+    const fieldsTableSpec = asRecord(detailSpec.fields) || {};
     return (_jsx(Page, { title: pageTitle, description: "Drill-in details for a single UI entity spec", icon: Table, breadcrumbs: [
             { label: 'Debug', href: '/admin/debug' },
             { label: 'UI Specs', href: '/admin/debug/ui-specs' },
@@ -215,6 +215,6 @@ export function UiSpecsDetail({ onNavigate }) {
                             display: 'grid',
                             gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
                             gap: '0.75rem',
-                        }, children: [_jsxs("div", { children: [_jsx("div", { style: { fontSize: '0.875rem', opacity: 0.7 }, children: "tableId" }), _jsx("div", { style: { fontFamily: 'monospace' }, children: tableId })] }), _jsxs("div", { children: [_jsx("div", { style: { fontSize: '0.875rem', opacity: 0.7 }, children: "drizzleTable" }), _jsx("div", { style: { fontFamily: 'monospace' }, children: drizzleTable })] })] }) }), _jsx(Card, { title: `List Columns (${listColumnsRows.length})`, children: _jsx(DataTable, { columns: listColumnsColumns, data: listColumnsRows, loading: false, emptyMessage: "No list.columns declared.", tableId: String(listColumnsTableSpec.tableId || 'debug.uiSpecs.listColumns'), showColumnVisibility: false }) }), _jsx(Card, { title: `Form Fields (${formFieldsRows.length})`, children: _jsx(DataTable, { columns: formFieldsColumns, data: formFieldsRows, loading: false, emptyMessage: "No form.fields declared.", tableId: String(formFieldsTableSpec.tableId || 'debug.uiSpecs.formFields'), showColumnVisibility: false }) }), _jsxs("details", { style: { border: '1px solid var(--hit-border)', borderRadius: 6, padding: '0.75rem' }, children: [_jsx("summary", { style: { cursor: 'pointer', fontWeight: 600 }, children: "Raw entity JSON" }), _jsx("pre", { style: { marginTop: '0.75rem', whiteSpace: 'pre-wrap', fontSize: '0.875rem' }, children: JSON.stringify(entity, null, 2) })] })] }) }));
+                        }, children: [_jsxs("div", { children: [_jsx("div", { style: { fontSize: '0.875rem', opacity: 0.7 }, children: "tableId" }), _jsx("div", { style: { fontFamily: 'monospace' }, children: tableId })] }), _jsxs("div", { children: [_jsx("div", { style: { fontSize: '0.875rem', opacity: 0.7 }, children: "drizzleTable" }), _jsx("div", { style: { fontFamily: 'monospace' }, children: drizzleTable })] })] }) }), _jsx(Card, { title: `List Columns (${listColumnsRows.length})`, children: _jsx(DataTable, { columns: listColumnsColumns, data: listColumnsRows, loading: false, emptyMessage: "No list.columns declared.", tableId: String(listColumnsTableSpec.tableId || 'debug.uiSpecs.listColumns'), showColumnVisibility: false }) }), _jsx(Card, { title: `Fields (${fieldsRows.length})`, children: _jsx(DataTable, { columns: fieldsColumns, data: fieldsRows, loading: false, emptyMessage: "No fields declared.", tableId: String(fieldsTableSpec.tableId || 'debug.uiSpecs.fields'), showColumnVisibility: false }) }), _jsxs("details", { style: { border: '1px solid var(--hit-border)', borderRadius: 6, padding: '0.75rem' }, children: [_jsx("summary", { style: { cursor: 'pointer', fontWeight: 600 }, children: "Raw entity JSON" }), _jsx("pre", { style: { marginTop: '0.75rem', whiteSpace: 'pre-wrap', fontSize: '0.875rem' }, children: JSON.stringify(entity, null, 2) })] })] }) }));
 }
 export default UiSpecsDetail;

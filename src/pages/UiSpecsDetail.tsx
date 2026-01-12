@@ -153,12 +153,12 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
     });
   }, [entity]);
 
-  // Build form fields rows
-  const formFieldsRows: FieldRow[] = useMemo(() => {
-    const form = asRecord(entity?.form) || null;
-    const arr = Array.isArray(form?.fields) ? (form?.fields as any[]) : [];
-    const filtered = arr.filter((f) => f && typeof f === 'object' && (f as any).key);
-    return filtered.map((f: any, idx: number) => {
+  // Build fields rows (canonical entities.<key>.fields map)
+  const fieldsRows: FieldRow[] = useMemo(() => {
+    const fields = asRecord(entity?.fields) || null;
+    const entries = fields ? Object.entries(fields) : [];
+    return entries.map(([key, fieldAny], idx) => {
+      const f = asRecord(fieldAny) || {};
       const ref = asRecord(f.reference);
       const extra = [
         f.optionSource ? `optionSource=${String(f.optionSource)}` : null,
@@ -167,8 +167,8 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
         .filter(Boolean)
         .join(' ');
       return {
-        id: `${f.key}-${idx}`,
-        key: String(f.key || ''),
+        id: `${key}-${idx}`,
+        key: String(key || ''),
         label: f.label ? String(f.label) : '',
         type: f.type ? String(f.type) : '',
         required: typeof f.required === 'boolean' ? String(f.required) : '',
@@ -205,9 +205,9 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
     }));
   }, [detailSpec, isMobile]);
 
-  // Columns for formFields table
-  const formFieldsColumns = useMemo(() => {
-    const tableSpec = asRecord(detailSpec.formFields) || {};
+  // Columns for fields table
+  const fieldsColumns = useMemo(() => {
+    const tableSpec = asRecord(detailSpec.fields) || {};
     const specCols = normalizeColumns(tableSpec.columns);
     const mobileKeys = tableSpec.mobileColumnKeys;
 
@@ -280,7 +280,7 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
   const tableId = asRecord(entity.list)?.tableId ? String(asRecord(entity.list)?.tableId) : '—';
   const drizzleTable = asRecord(entity.storage)?.drizzleTable ? String(asRecord(entity.storage)?.drizzleTable) : '—';
   const listColumnsTableSpec = asRecord(detailSpec.listColumns) || {};
-  const formFieldsTableSpec = asRecord(detailSpec.formFields) || {};
+  const fieldsTableSpec = asRecord(detailSpec.fields) || {};
 
   return (
     <Page
@@ -330,13 +330,13 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
           />
         </Card>
 
-        <Card title={`Form Fields (${formFieldsRows.length})`}>
+        <Card title={`Fields (${fieldsRows.length})`}>
           <DataTable
-            columns={formFieldsColumns}
-            data={formFieldsRows}
+            columns={fieldsColumns}
+            data={fieldsRows}
             loading={false}
-            emptyMessage="No form.fields declared."
-            tableId={String(formFieldsTableSpec.tableId || 'debug.uiSpecs.formFields')}
+            emptyMessage="No fields declared."
+            tableId={String(fieldsTableSpec.tableId || 'debug.uiSpecs.fields')}
             showColumnVisibility={false}
           />
         </Card>

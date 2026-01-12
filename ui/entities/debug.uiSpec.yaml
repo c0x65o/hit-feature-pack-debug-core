@@ -29,13 +29,13 @@ entities:
         - tableId
         - drizzleTable
         - listColumnCount
-        - formFieldCount
+        - fieldCount
       initialColumnVisibility:
         entityKey: true
         tableId: true
         drizzleTable: true
         listColumnCount: true
-        formFieldCount: true
+        fieldCount: true
       initialSorting:
         - id: entityKey
           desc: false
@@ -56,8 +56,8 @@ entities:
           label: "# list cols"
           sortable: true
           filterType: number
-        - key: formFieldCount
-          label: "# form fields"
+        - key: fieldCount
+          label: "# fields"
           sortable: true
           filterType: number
 
@@ -88,8 +88,8 @@ entities:
             sortable: false
             filterType: string
 
-      formFields:
-        tableId: debug.uiSpecs.formFields
+      fields:
+        tableId: debug.uiSpecs.fields
         mobileColumnKeys: [key, label]
         columns:
           - key: key

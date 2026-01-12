@@ -1,1 +1,1 @@
-{"version":3,"file":"UiSpecsList.d.ts","sourceRoot":"","sources":["../../src/pages/UiSpecsList.tsx"],"names":[],"mappings":"AAsCA,MAAM,WAAW,gBAAgB;IAC/B,UAAU,CAAC,EAAE,CAAC,IAAI,EAAE,MAAM,KAAK,IAAI,CAAC;CACrC;AAED,wBAAgB,WAAW,CAAC,EAAE,UAAU,EAAE,EAAE,gBAAgB,2CAgK3D;AAED,eAAe,WAAW,CAAC"}
+{"version":3,"file":"UiSpecsList.d.ts","sourceRoot":"","sources":["../../src/pages/UiSpecsList.tsx"],"names":[],"mappings":"AAsCA,MAAM,WAAW,gBAAgB;IAC/B,UAAU,CAAC,EAAE,CAAC,IAAI,EAAE,MAAM,KAAK,IAAI,CAAC;CACrC;AAED,wBAAgB,WAAW,CAAC,EAAE,UAAU,EAAE,EAAE,gBAAgB,2CA8J3D;AAED,eAAe,WAAW,CAAC"}
