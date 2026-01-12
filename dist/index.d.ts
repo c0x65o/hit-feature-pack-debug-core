@@ -1,3 +1,4 @@
-export declare const routes: never[];
-export declare const nav: never[];
+export { ServerStats } from './pages/ServerStats';
+export { DbStats } from './pages/DbStats';
+export { DashboardState } from './pages/DashboardState';
 //# sourceMappingURL=index.d.ts.map
