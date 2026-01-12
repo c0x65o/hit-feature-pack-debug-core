@@ -1,22 +1,62 @@
 {
   "name": "@hit/feature-pack-debug-core",
-  "version": "1.0.0",
-  "description": "A HIT feature pack",
+  "version": "1.0.1",
+  "description": "Debug utilities for system administrators",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./pages/*": {
+      "development": "./src/pages/*.tsx",
+      "types": "./dist/pages/*.d.ts",
+      "import": "./dist/pages/*.js",
+      "require": "./dist/pages/*.js",
+      "default": "./dist/pages/*.js"
+    },
+    "./server/api/*": {
+      "development": "./src/server/api/*.ts",
+      "types": "./dist/server/api/*.d.ts",
+      "import": "./dist/server/api/*.js",
+      "require": "./dist/server/api/*.js",
+      "default": "./dist/server/api/*.js"
+    }
+  },
   "files": [
     "dist",
+    "src",
     "feature-pack.yaml"
   ],
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
+    "@hit/ui-kit": "*",
+    "lucide-react": "^0.460.0",
     "react": "^18.0.0"
   },
+  "peerDependenciesMeta": {
+    "@hit/ui-kit": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@hit/feature-pack-stubs": "file:../../../packages/hit-feature-pack-stubs",
+    "@hit/ui-kit": "file:../../../packages/hit-ui-kit-ts",
+    "@types/node": "^20",
+    "@types/react": "^19.0.0",
+    "lucide-react": "^0.460.0",
+    "react": "^18.0.0",
     "typescript": "^5.0.0"
-  }
+  },
+  "license": "MIT",
+  "sideEffects": false
 }

@@ -1,4 +1,125 @@
 name: debug-core
-description: A HIT feature pack
-routes: []
-nav: []
+title: Debug
+description: Debug utilities for system administrators (server stats, database stats, dashboard state)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ROUTES - Page routes with authz annotations
+# ─────────────────────────────────────────────────────────────────────────────
+routes:
+  - path: /admin/debug/server-stats
+    page: ServerStats
+    roles: []
+    default_roles_allow: [admin]
+    authz: { entity: debug, verb: read }
+  - path: /admin/debug/db-stats
+    page: DbStats
+    roles: []
+    default_roles_allow: [admin]
+    authz: { entity: debug, verb: read }
+  - path: /admin/debug/dashboard-state
+    page: DashboardState
+    roles: []
+    default_roles_allow: [admin]
+    authz: { entity: debug, verb: read }
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NAV - Navigation entries
+# ─────────────────────────────────────────────────────────────────────────────
+nav:
+  - id: debug
+    label: Debug
+    icon: Bug
+    group: system
+    roles: [admin]
+    showWhen: authenticated
+    weight: 910
+    children:
+      - id: debug-server-stats
+        label: Server Stats
+        path: /admin/debug/server-stats
+        icon: Server
+        weight: 10
+        roles: [admin]
+        showWhen: authenticated
+      - id: debug-db-stats
+        label: DB Stats
+        path: /admin/debug/db-stats
+        icon: Database
+        weight: 20
+        roles: [admin]
+        showWhen: authenticated
+      - id: debug-dashboard-state
+        label: Dashboard State
+        path: /admin/debug/dashboard-state
+        icon: LayoutDashboard
+        weight: 30
+        roles: [admin]
+        showWhen: authenticated
+
+# ─────────────────────────────────────────────────────────────────────────────
+# API ROUTES - Backend endpoints
+# ─────────────────────────────────────────────────────────────────────────────
+api:
+  routes:
+    - path: /api/debug/server-stats
+      methods: [GET]
+      handler: "@hit/feature-pack-debug-core/server/api/server-stats"
+      description: "Get server statistics (memory, CPU, disk, cgroup info). Admin only."
+    - path: /api/debug/db-stats
+      methods: [GET]
+      handler: "@hit/feature-pack-debug-core/server/api/db-stats"
+      description: "Get database statistics (table sizes, row counts, indexes). Admin only."
+    - path: /api/debug/dashboard-state
+      methods: [GET]
+      handler: "@hit/feature-pack-debug-core/server/api/dashboard-state"
+      description: "Get dashboard state debug info. Admin only."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PERMISSIONS - Action definitions (for admin-core permissions UI + runtime checks)
+# ─────────────────────────────────────────────────────────────────────────────
+permissions:
+  actions:
+    # Scope Policy Tree: debug-core (global) -> entity overrides.
+    #
+    # Scope modes:
+    # - none: deny all access for this verb/entity (hide pages + block APIs)
+    # - any: ignore scope (read everything)
+    # - own: only owned records (not applicable for debug - debug info doesn't have ownership)
+    # - ldd: owner OR matching L/D/D (not applicable for debug - debug info doesn't have LDD fields)
+    #
+    # These are mutually exclusive per node; the Security Groups UI renders them as dropdowns.
+    # Note: Debug utilities are admin-only and don't have ownership or LDD fields, so only 'any' mode is meaningful.
+    - key: debug-core.read.scope.none
+      label: "Debug Core Read Scope = None"
+      description: "Deny all debug read access."
+      default_enabled: false
+    - key: debug-core.read.scope.any
+      label: "Debug Core Read Scope = Any"
+      description: "Read all debug information regardless of scope."
+      default_enabled: false
+    - key: debug-core.read.scope.own
+      label: "Debug Core Read Scope = Own"
+      description: "Read only debug info you own (not applicable - debug info doesn't have ownership fields)."
+      default_enabled: false
+    - key: debug-core.read.scope.ldd
+      label: "Debug Core Read Scope = LDD"
+      description: "Read debug info you own, or that match your L/D/D scope (not applicable - debug info doesn't have LDD fields)."
+      default_enabled: false
+
+    # Debug override (optional): if set, overrides debug-core.read.scope.* for debug only.
+    - key: debug-core.debug.read.scope.none
+      label: "Debug Core Debug Read Scope = None"
+      description: "Deny all debug information read access."
+      default_enabled: false
+    - key: debug-core.debug.read.scope.any
+      label: "Debug Core Debug Read Scope = Any"
+      description: "Read debug information regardless of scope."
+      default_enabled: false
+    - key: debug-core.debug.read.scope.own
+      label: "Debug Core Debug Read Scope = Own"
+      description: "Read only debug info you own (not applicable - debug info doesn't have ownership fields)."
+      default_enabled: false
+    - key: debug-core.debug.read.scope.ldd
+      label: "Debug Core Debug Read Scope = LDD"
+      description: "Read debug info you own, or that match your L/D/D scope (not applicable - debug info doesn't have LDD fields)."
+      default_enabled: false
