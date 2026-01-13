@@ -577,6 +577,17 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
           </div>
         </Card>
 
+        <Card title={`Fields (${fieldsRows.length})`}>
+          <DataTable
+            columns={fieldsColumns}
+            data={fieldsRows}
+            loading={false}
+            emptyMessage="No fields declared."
+            tableId={String(fieldsTableSpec.tableId || 'debug.uiSpecs.fields')}
+            showColumnVisibility={false}
+          />
+        </Card>
+
         <Card title="Meta">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div
@@ -675,17 +686,6 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
             loading={false}
             emptyMessage="No form.sections declared."
             tableId={String(formSectionsTableSpec.tableId || 'debug.uiSpecs.formSections')}
-            showColumnVisibility={false}
-          />
-        </Card>
-
-        <Card title={`Fields (${fieldsRows.length})`}>
-          <DataTable
-            columns={fieldsColumns}
-            data={fieldsRows}
-            loading={false}
-            emptyMessage="No fields declared."
-            tableId={String(fieldsTableSpec.tableId || 'debug.uiSpecs.fields')}
             showColumnVisibility={false}
           />
         </Card>
