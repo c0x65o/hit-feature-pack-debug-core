@@ -85,6 +85,18 @@ entities:
           sortable: true
           filterType: number
 
+    # Canonical fields map (virtual entity; all fields are derived from /hit-ui-specs.json).
+    fields:
+      entityKey: { type: text, label: Entity, virtual: true }
+      tableId: { type: text, label: tableId, virtual: true }
+      drizzleTable: { type: text, label: drizzleTable, virtual: true }
+      listColumnCount: { type: number, label: "# list cols", virtual: true }
+      fieldCount: { type: number, label: "# fields", virtual: true }
+      formSectionCount: { type: number, label: "# form sections", virtual: true }
+      relationCount: { type: number, label: "# relations", virtual: true }
+      headerActionCount: { type: number, label: "# header actions", virtual: true }
+      detailExtrasCount: { type: number, label: "# detail extras", virtual: true }
+
     detail:
       # Sub-tables for the detail view
       metaRoutes:
