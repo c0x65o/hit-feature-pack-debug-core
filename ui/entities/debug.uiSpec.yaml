@@ -48,42 +48,15 @@ entities:
         - id: entityKey
           desc: false
       columns:
-        - key: entityKey
-          label: Entity
-          sortable: true
-          filterType: string
-        - key: tableId
-          label: tableId
-          sortable: true
-          filterType: string
-        - key: drizzleTable
-          label: drizzleTable
-          sortable: true
-          filterType: string
-        - key: listColumnCount
-          label: "# list cols"
-          sortable: true
-          filterType: number
-        - key: fieldCount
-          label: "# fields"
-          sortable: true
-          filterType: number
-        - key: formSectionCount
-          label: "# form sections"
-          sortable: true
-          filterType: number
-        - key: relationCount
-          label: "# relations"
-          sortable: true
-          filterType: number
-        - key: headerActionCount
-          label: "# header actions"
-          sortable: true
-          filterType: number
-        - key: detailExtrasCount
-          label: "# detail extras"
-          sortable: true
-          filterType: number
+        - entityKey
+        - tableId
+        - drizzleTable
+        - listColumnCount
+        - fieldCount
+        - formSectionCount
+        - relationCount
+        - headerActionCount
+        - detailExtrasCount
 
     # Canonical fields map (virtual entity; all fields are derived from /hit-ui-specs.json).
     fields:
