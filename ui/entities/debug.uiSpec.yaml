@@ -19,7 +19,6 @@ entities:
     list:
       tableId: debug.uiSpecs
       uiStateVersion: 1
-      mobileColumnKeys: [entityKey, tableId]
       pageSize: 50
       initialSort:
         sortBy: entityKey
