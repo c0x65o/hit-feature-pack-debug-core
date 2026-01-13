@@ -347,35 +347,47 @@ export function UiSpecsDetail({ onNavigate }) {
     const formSectionsTableSpec = asRecord(detailSpec.formSections) || {};
     const relationsTableSpec = asRecord(detailSpec.relations) || {};
     const detailExtrasTableSpec = asRecord(detailSpec.detailExtras) || {};
-    const metaRoutesColumns = useMemo(() => buildTableColumns('metaRoutes', [{ key: 'key', label: 'key', sortable: true }, { key: 'value', label: 'path' }]), [detailSpec, isMobile]);
-    const breadcrumbsColumns = useMemo(() => buildTableColumns('breadcrumbs', [{ key: 'label', label: 'label', sortable: true }, { key: 'href', label: 'href' }]), [detailSpec, isMobile]);
-    const metaActionsColumns = useMemo(() => buildTableColumns('metaActions', [{ key: 'key', label: 'key', sortable: true }, { key: 'value', label: 'value' }]), [detailSpec, isMobile]);
-    const headerActionsColumns = useMemo(() => buildTableColumns('headerActions', [
+    const metaRoutesColumns = buildTableColumns('metaRoutes', [
+        { key: 'key', label: 'key', sortable: true },
+        { key: 'path', label: 'path' },
+    ]);
+    const breadcrumbsColumns = buildTableColumns('breadcrumbs', [
+        { key: 'label', label: 'label', sortable: true },
+        { key: 'href', label: 'href' },
+    ]);
+    const metaActionsColumns = buildTableColumns('metaActions', [
+        { key: 'key', label: 'key', sortable: true },
+        { key: 'value', label: 'value' },
+    ]);
+    const headerActionsColumns = buildTableColumns('headerActions', [
         { key: 'kind', label: 'kind', sortable: true },
         { key: 'label', label: 'label' },
         { key: 'actionKey', label: 'actionKey' },
         { key: 'icon', label: 'icon' },
         { key: 'platforms', label: 'platforms' },
         { key: 'visibility', label: 'visibility' },
-    ]), [detailSpec, isMobile]);
-    const listConfigColumns = useMemo(() => buildTableColumns('listConfig', [{ key: 'key', label: 'key', sortable: true }, { key: 'value', label: 'value' }]), [detailSpec, isMobile]);
-    const formSectionsColumns = useMemo(() => buildTableColumns('formSections', [
+    ]);
+    const listConfigColumns = buildTableColumns('listConfig', [
+        { key: 'key', label: 'key', sortable: true },
+        { key: 'value', label: 'value' },
+    ]);
+    const formSectionsColumns = buildTableColumns('formSections', [
         { key: 'id', label: 'id', sortable: true },
         { key: 'title', label: 'title' },
         { key: 'layout', label: 'layout' },
         { key: 'widget', label: 'widget' },
         { key: 'relation', label: 'relation' },
         { key: 'fields', label: 'fields' },
-    ]), [detailSpec, isMobile]);
-    const relationsColumns = useMemo(() => buildTableColumns('relations', [
+    ]);
+    const relationsColumns = buildTableColumns('relations', [
         { key: 'key', label: 'key', sortable: true },
         { key: 'kind', label: 'kind' },
         { key: 'persist', label: 'persist' },
         { key: 'primary', label: 'primary' },
         { key: 'uiTitle', label: 'ui.title' },
         { key: 'fieldCount', label: '# ui fields', sortable: true },
-    ]), [detailSpec, isMobile]);
-    const detailExtrasColumns = useMemo(() => buildTableColumns('detailExtras', [
+    ]);
+    const detailExtrasColumns = buildTableColumns('detailExtras', [
         { key: 'kind', label: 'kind', sortable: true },
         { key: 'title', label: 'title' },
         { key: 'entityType', label: 'entityType' },
@@ -384,7 +396,7 @@ export function UiSpecsDetail({ onNavigate }) {
         { key: 'query', label: 'query' },
         { key: 'createRoute', label: 'createRoute' },
         { key: 'emptyMessage', label: 'emptyMessage' },
-    ]), [detailSpec, isMobile]);
+    ]);
     return (_jsx(Page, { title: pageTitle, description: "Drill-in details for a single UI entity spec", icon: Table, breadcrumbs: [
             { label: 'Debug', href: '/admin/debug' },
             { label: 'UI Specs', href: '/admin/debug/ui-specs' },
@@ -397,7 +409,7 @@ export function UiSpecsDetail({ onNavigate }) {
                                     display: 'grid',
                                     gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
                                     gap: '0.75rem',
-                                }, children: [_jsxs("div", { children: [_jsx("div", { style: { fontSize: '0.875rem', opacity: 0.7 }, children: "titleSingular" }), _jsx("div", { style: { fontFamily: 'monospace' }, children: entityMeta.titleSingular ? String(entityMeta.titleSingular) : '—' })] }), _jsxs("div", { children: [_jsx("div", { style: { fontSize: '0.875rem', opacity: 0.7 }, children: "titlePlural" }), _jsx("div", { style: { fontFamily: 'monospace' }, children: entityMeta.titlePlural ? String(entityMeta.titlePlural) : '—' })] })] }), _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: [_jsx("div", { style: { fontWeight: 600 }, children: "Routes" }), _jsx(DataTable, { columns: metaRoutesColumns, data: metaRoutesRows.map((r) => ({ id: r.id, key: r.key, value: r.value })), loading: false, emptyMessage: "No meta.routes declared.", tableId: String(metaRoutesTableSpec.tableId || 'debug.uiSpecs.metaRoutes'), showColumnVisibility: false })] }), _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: [_jsx("div", { style: { fontWeight: 600 }, children: "Breadcrumbs" }), _jsx(DataTable, { columns: breadcrumbsColumns, data: breadcrumbsRows, loading: false, emptyMessage: "No meta.breadcrumbs declared.", tableId: String(breadcrumbsTableSpec.tableId || 'debug.uiSpecs.breadcrumbs'), showColumnVisibility: false })] }), _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: [_jsx("div", { style: { fontWeight: 600 }, children: "Actions (labels / confirm copy)" }), _jsx(DataTable, { columns: metaActionsColumns, data: metaActionsRows.map((r) => ({ id: r.id, key: r.key, value: r.value })), loading: false, emptyMessage: "No meta.actions declared.", tableId: String(metaActionsTableSpec.tableId || 'debug.uiSpecs.metaActions'), showColumnVisibility: false })] }), _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: [_jsx("div", { style: { fontWeight: 600 }, children: "Header Actions" }), _jsx(DataTable, { columns: headerActionsColumns, data: headerActionsRows, loading: false, emptyMessage: "No meta.headerActions declared.", tableId: String(headerActionsTableSpec.tableId || 'debug.uiSpecs.headerActions'), showColumnVisibility: false })] })] }) }), _jsx(Card, { title: "List Config", children: _jsx(DataTable, { columns: listConfigColumns, data: listConfigRows.map((r) => ({ id: r.id, key: r.key, value: r.value })), loading: false, emptyMessage: "No list config declared.", tableId: String(listConfigTableSpec.tableId || 'debug.uiSpecs.listConfig'), showColumnVisibility: false }) }), _jsx(Card, { title: `List Columns (${listColumnsRows.length})`, children: _jsx(DataTable, { columns: listColumnsColumns, data: listColumnsRows, loading: false, emptyMessage: "No list.columns declared.", tableId: String(listColumnsTableSpec.tableId || 'debug.uiSpecs.listColumns'), showColumnVisibility: false }) }), _jsx(Card, { title: `Form Sections (${formSectionsRows.length})`, children: _jsx(DataTable, { columns: formSectionsColumns, data: formSectionsRows, loading: false, emptyMessage: "No form.sections declared.", tableId: String(formSectionsTableSpec.tableId || 'debug.uiSpecs.formSections'), showColumnVisibility: false }) }), _jsx(Card, { title: `Fields (${fieldsRows.length})`, children: _jsx(DataTable, { columns: fieldsColumns, data: fieldsRows, loading: false, emptyMessage: "No fields declared.", tableId: String(fieldsTableSpec.tableId || 'debug.uiSpecs.fields'), showColumnVisibility: false }) }), _jsxs(Card, { title: `Relations (${relationsRows.length})`, children: [_jsx(DataTable, { columns: relationsColumns, data: relationsRows, loading: false, emptyMessage: "No relations declared.", tableId: String(relationsTableSpec.tableId || 'debug.uiSpecs.relations'), showColumnVisibility: false }), relationsRows.length > 0 ? (_jsx("div", { style: { marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: relationsRows.map((r) => {
+                                }, children: [_jsxs("div", { children: [_jsx("div", { style: { fontSize: '0.875rem', opacity: 0.7 }, children: "titleSingular" }), _jsx("div", { style: { fontFamily: 'monospace' }, children: entityMeta.titleSingular ? String(entityMeta.titleSingular) : '—' })] }), _jsxs("div", { children: [_jsx("div", { style: { fontSize: '0.875rem', opacity: 0.7 }, children: "titlePlural" }), _jsx("div", { style: { fontFamily: 'monospace' }, children: entityMeta.titlePlural ? String(entityMeta.titlePlural) : '—' })] })] }), _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: [_jsx("div", { style: { fontWeight: 600 }, children: "Routes" }), _jsx(DataTable, { columns: metaRoutesColumns, data: metaRoutesRows.map((r) => ({ id: r.id, key: r.key, path: r.value })), loading: false, emptyMessage: "No meta.routes declared.", tableId: String(metaRoutesTableSpec.tableId || 'debug.uiSpecs.metaRoutes'), showColumnVisibility: false })] }), _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: [_jsx("div", { style: { fontWeight: 600 }, children: "Breadcrumbs" }), _jsx(DataTable, { columns: breadcrumbsColumns, data: breadcrumbsRows, loading: false, emptyMessage: "No meta.breadcrumbs declared.", tableId: String(breadcrumbsTableSpec.tableId || 'debug.uiSpecs.breadcrumbs'), showColumnVisibility: false })] }), _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: [_jsx("div", { style: { fontWeight: 600 }, children: "Actions (labels / confirm copy)" }), _jsx(DataTable, { columns: metaActionsColumns, data: metaActionsRows.map((r) => ({ id: r.id, key: r.key, value: r.value })), loading: false, emptyMessage: "No meta.actions declared.", tableId: String(metaActionsTableSpec.tableId || 'debug.uiSpecs.metaActions'), showColumnVisibility: false })] }), _jsxs("div", { style: { display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: [_jsx("div", { style: { fontWeight: 600 }, children: "Header Actions" }), _jsx(DataTable, { columns: headerActionsColumns, data: headerActionsRows, loading: false, emptyMessage: "No meta.headerActions declared.", tableId: String(headerActionsTableSpec.tableId || 'debug.uiSpecs.headerActions'), showColumnVisibility: false })] })] }) }), _jsx(Card, { title: "List Config", children: _jsx(DataTable, { columns: listConfigColumns, data: listConfigRows.map((r) => ({ id: r.id, key: r.key, value: r.value })), loading: false, emptyMessage: "No list config declared.", tableId: String(listConfigTableSpec.tableId || 'debug.uiSpecs.listConfig'), showColumnVisibility: false }) }), _jsx(Card, { title: `List Columns (${listColumnsRows.length})`, children: _jsx(DataTable, { columns: listColumnsColumns, data: listColumnsRows, loading: false, emptyMessage: "No list.columns declared.", tableId: String(listColumnsTableSpec.tableId || 'debug.uiSpecs.listColumns'), showColumnVisibility: false }) }), _jsx(Card, { title: `Form Sections (${formSectionsRows.length})`, children: _jsx(DataTable, { columns: formSectionsColumns, data: formSectionsRows, loading: false, emptyMessage: "No form.sections declared.", tableId: String(formSectionsTableSpec.tableId || 'debug.uiSpecs.formSections'), showColumnVisibility: false }) }), _jsx(Card, { title: `Fields (${fieldsRows.length})`, children: _jsx(DataTable, { columns: fieldsColumns, data: fieldsRows, loading: false, emptyMessage: "No fields declared.", tableId: String(fieldsTableSpec.tableId || 'debug.uiSpecs.fields'), showColumnVisibility: false }) }), _jsxs(Card, { title: `Relations (${relationsRows.length})`, children: [_jsx(DataTable, { columns: relationsColumns, data: relationsRows, loading: false, emptyMessage: "No relations declared.", tableId: String(relationsTableSpec.tableId || 'debug.uiSpecs.relations'), showColumnVisibility: false }), relationsRows.length > 0 ? (_jsx("div", { style: { marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }, children: relationsRows.map((r) => {
                                 const relAny = asRecord(entityRelations?.[r.key]) || {};
                                 return (_jsxs("details", { style: { border: '1px solid var(--hit-border)', borderRadius: 6, padding: '0.75rem' }, children: [_jsxs("summary", { style: { cursor: 'pointer', fontWeight: 600 }, children: [r.key, " (", r.kind, ")"] }), _jsx("pre", { style: { marginTop: '0.75rem', whiteSpace: 'pre-wrap', fontSize: '0.875rem' }, children: JSON.stringify(relAny, null, 2) })] }, r.id));
                             }) })) : null] }), _jsxs(Card, { title: `Detail Extras (${detailExtrasRows.length})`, children: [_jsx(DataTable, { columns: detailExtrasColumns, data: detailExtrasRows, loading: false, emptyMessage: "No detail.extras declared.", tableId: String(detailExtrasTableSpec.tableId || 'debug.uiSpecs.detailExtras'), showColumnVisibility: false }), detailExtrasRows.length > 0 ? (_jsxs("details", { style: { marginTop: '1rem', border: '1px solid var(--hit-border)', borderRadius: 6, padding: '0.75rem' }, children: [_jsx("summary", { style: { cursor: 'pointer', fontWeight: 600 }, children: "Raw detail JSON" }), _jsx("pre", { style: { marginTop: '0.75rem', whiteSpace: 'pre-wrap', fontSize: '0.875rem' }, children: JSON.stringify(entityDetail, null, 2) })] })) : null] }), _jsxs("details", { style: { border: '1px solid var(--hit-border)', borderRadius: 6, padding: '0.75rem' }, children: [_jsx("summary", { style: { cursor: 'pointer', fontWeight: 600 }, children: "Raw entity JSON" }), _jsx("pre", { style: { marginTop: '0.75rem', whiteSpace: 'pre-wrap', fontSize: '0.875rem' }, children: JSON.stringify(entity, null, 2) })] })] }) }));

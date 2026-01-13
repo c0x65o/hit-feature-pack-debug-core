@@ -477,72 +477,56 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
   const relationsTableSpec = asRecord((detailSpec as any).relations) || {};
   const detailExtrasTableSpec = asRecord((detailSpec as any).detailExtras) || {};
 
-  const metaRoutesColumns = useMemo(
-    () => buildTableColumns('metaRoutes', [{ key: 'key', label: 'key', sortable: true }, { key: 'value', label: 'path' }]),
-    [detailSpec, isMobile]
-  );
-  const breadcrumbsColumns = useMemo(
-    () => buildTableColumns('breadcrumbs', [{ key: 'label', label: 'label', sortable: true }, { key: 'href', label: 'href' }]),
-    [detailSpec, isMobile]
-  );
-  const metaActionsColumns = useMemo(
-    () => buildTableColumns('metaActions', [{ key: 'key', label: 'key', sortable: true }, { key: 'value', label: 'value' }]),
-    [detailSpec, isMobile]
-  );
-  const headerActionsColumns = useMemo(
-    () =>
-      buildTableColumns('headerActions', [
-        { key: 'kind', label: 'kind', sortable: true },
-        { key: 'label', label: 'label' },
-        { key: 'actionKey', label: 'actionKey' },
-        { key: 'icon', label: 'icon' },
-        { key: 'platforms', label: 'platforms' },
-        { key: 'visibility', label: 'visibility' },
-      ]),
-    [detailSpec, isMobile]
-  );
-  const listConfigColumns = useMemo(
-    () => buildTableColumns('listConfig', [{ key: 'key', label: 'key', sortable: true }, { key: 'value', label: 'value' }]),
-    [detailSpec, isMobile]
-  );
-  const formSectionsColumns = useMemo(
-    () =>
-      buildTableColumns('formSections', [
-        { key: 'id', label: 'id', sortable: true },
-        { key: 'title', label: 'title' },
-        { key: 'layout', label: 'layout' },
-        { key: 'widget', label: 'widget' },
-        { key: 'relation', label: 'relation' },
-        { key: 'fields', label: 'fields' },
-      ]),
-    [detailSpec, isMobile]
-  );
-  const relationsColumns = useMemo(
-    () =>
-      buildTableColumns('relations', [
-        { key: 'key', label: 'key', sortable: true },
-        { key: 'kind', label: 'kind' },
-        { key: 'persist', label: 'persist' },
-        { key: 'primary', label: 'primary' },
-        { key: 'uiTitle', label: 'ui.title' },
-        { key: 'fieldCount', label: '# ui fields', sortable: true },
-      ]),
-    [detailSpec, isMobile]
-  );
-  const detailExtrasColumns = useMemo(
-    () =>
-      buildTableColumns('detailExtras', [
-        { key: 'kind', label: 'kind', sortable: true },
-        { key: 'title', label: 'title' },
-        { key: 'entityType', label: 'entityType' },
-        { key: 'tableId', label: 'tableId' },
-        { key: 'platforms', label: 'platforms' },
-        { key: 'query', label: 'query' },
-        { key: 'createRoute', label: 'createRoute' },
-        { key: 'emptyMessage', label: 'emptyMessage' },
-      ]),
-    [detailSpec, isMobile]
-  );
+  const metaRoutesColumns = buildTableColumns('metaRoutes', [
+    { key: 'key', label: 'key', sortable: true },
+    { key: 'path', label: 'path' },
+  ]);
+  const breadcrumbsColumns = buildTableColumns('breadcrumbs', [
+    { key: 'label', label: 'label', sortable: true },
+    { key: 'href', label: 'href' },
+  ]);
+  const metaActionsColumns = buildTableColumns('metaActions', [
+    { key: 'key', label: 'key', sortable: true },
+    { key: 'value', label: 'value' },
+  ]);
+  const headerActionsColumns = buildTableColumns('headerActions', [
+    { key: 'kind', label: 'kind', sortable: true },
+    { key: 'label', label: 'label' },
+    { key: 'actionKey', label: 'actionKey' },
+    { key: 'icon', label: 'icon' },
+    { key: 'platforms', label: 'platforms' },
+    { key: 'visibility', label: 'visibility' },
+  ]);
+  const listConfigColumns = buildTableColumns('listConfig', [
+    { key: 'key', label: 'key', sortable: true },
+    { key: 'value', label: 'value' },
+  ]);
+  const formSectionsColumns = buildTableColumns('formSections', [
+    { key: 'id', label: 'id', sortable: true },
+    { key: 'title', label: 'title' },
+    { key: 'layout', label: 'layout' },
+    { key: 'widget', label: 'widget' },
+    { key: 'relation', label: 'relation' },
+    { key: 'fields', label: 'fields' },
+  ]);
+  const relationsColumns = buildTableColumns('relations', [
+    { key: 'key', label: 'key', sortable: true },
+    { key: 'kind', label: 'kind' },
+    { key: 'persist', label: 'persist' },
+    { key: 'primary', label: 'primary' },
+    { key: 'uiTitle', label: 'ui.title' },
+    { key: 'fieldCount', label: '# ui fields', sortable: true },
+  ]);
+  const detailExtrasColumns = buildTableColumns('detailExtras', [
+    { key: 'kind', label: 'kind', sortable: true },
+    { key: 'title', label: 'title' },
+    { key: 'entityType', label: 'entityType' },
+    { key: 'tableId', label: 'tableId' },
+    { key: 'platforms', label: 'platforms' },
+    { key: 'query', label: 'query' },
+    { key: 'createRoute', label: 'createRoute' },
+    { key: 'emptyMessage', label: 'emptyMessage' },
+  ]);
 
   return (
     <Page
@@ -616,7 +600,7 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
               <div style={{ fontWeight: 600 }}>Routes</div>
               <DataTable
                 columns={metaRoutesColumns}
-                data={metaRoutesRows.map((r) => ({ id: r.id, key: r.key, value: r.value }))}
+                data={metaRoutesRows.map((r) => ({ id: r.id, key: r.key, path: r.value }))}
                 loading={false}
                 emptyMessage="No meta.routes declared."
                 tableId={String(metaRoutesTableSpec.tableId || 'debug.uiSpecs.metaRoutes')}
