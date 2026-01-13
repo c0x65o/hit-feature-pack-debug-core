@@ -118,10 +118,6 @@ permissions:
       label: "Debug Core Read Scope = Own"
       description: "Read only debug info you own (not applicable - debug info doesn't have ownership fields)."
       default_enabled: false
-    - key: debug-core.read.scope.ldd
-      label: "Debug Core Read Scope = LDD"
-      description: "Read debug info you own, or that match your L/D/D scope (not applicable - debug info doesn't have LDD fields)."
-      default_enabled: false
 
     # Debug override (optional): if set, overrides debug-core.read.scope.* for debug only.
     - key: debug-core.debug.read.scope.none
@@ -135,8 +131,4 @@ permissions:
     - key: debug-core.debug.read.scope.own
       label: "Debug Core Debug Read Scope = Own"
       description: "Read only debug info you own (not applicable - debug info doesn't have ownership fields)."
-      default_enabled: false
-    - key: debug-core.debug.read.scope.ldd
-      label: "Debug Core Debug Read Scope = LDD"
-      description: "Read debug info you own, or that match your L/D/D scope (not applicable - debug info doesn't have LDD fields)."
       default_enabled: false
