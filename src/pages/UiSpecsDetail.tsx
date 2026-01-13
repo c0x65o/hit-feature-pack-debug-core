@@ -263,7 +263,6 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
       'platforms',
       'uiStateVersion',
       'defaultVisibleOnly',
-      'mobileColumnKeys',
       'pageSize',
       'initialSort',
       'sortWhitelist',
@@ -380,13 +379,11 @@ export function UiSpecsDetail({ onNavigate }: UiSpecsDetailProps) {
   function buildTableColumns(tableKey: string, fallback: Array<{ key: string; label: string; sortable?: boolean }>) {
     const tableSpec = asRecord((detailSpec as any)?.[tableKey]) || {};
     const specCols = normalizeColumns(tableSpec.columns);
-    const mobileKeys = tableSpec.mobileColumnKeys;
 
     let cols = specCols.length > 0 ? specCols : fallback;
 
-    if (isMobile && Array.isArray(mobileKeys) && mobileKeys.length > 0) {
-      const allow = new Set(mobileKeys.map((k: any) => String(k)));
-      cols = cols.filter((c) => allow.has(String(c.key)));
+    if (isMobile) {
+      cols = cols.filter((c) => String(c.key) !== 'actions').slice(0, 3);
     }
 
     return cols.map((c) => ({

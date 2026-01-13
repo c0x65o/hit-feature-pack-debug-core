@@ -116,7 +116,6 @@ export function UiSpecsList({ onNavigate }) {
     // Build columns from the spec, with fallback
     const columns = useMemo(() => {
         const specCols = normalizeColumns(listSpec.columns);
-        const mobileKeys = listSpec.mobileColumnKeys;
         const fallback = [
             { key: 'entityKey', label: 'Entity', sortable: true, filterType: 'string' },
             { key: 'tableId', label: 'tableId', sortable: true, filterType: 'string' },
@@ -126,9 +125,8 @@ export function UiSpecsList({ onNavigate }) {
         ];
         let cols = specCols.length > 0 ? specCols : fallback;
         // Filter for mobile
-        if (isMobile && Array.isArray(mobileKeys) && mobileKeys.length > 0) {
-            const allow = new Set(mobileKeys.map((k) => String(k)));
-            cols = cols.filter((c) => allow.has(String(c.key)));
+        if (isMobile) {
+            cols = cols.filter((c) => String(c.key) !== 'actions').slice(0, 3);
         }
         return cols.map((c) => ({
             key: String(c.key),

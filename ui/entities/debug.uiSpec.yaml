@@ -73,7 +73,6 @@ entities:
       # Sub-tables for the detail view
       metaRoutes:
         tableId: debug.uiSpecs.metaRoutes
-        mobileColumnKeys: [key, path]
         columns:
           - key: key
             label: key
@@ -86,7 +85,6 @@ entities:
 
       breadcrumbs:
         tableId: debug.uiSpecs.breadcrumbs
-        mobileColumnKeys: [label, href]
         columns:
           - key: label
             label: label
@@ -99,7 +97,6 @@ entities:
 
       metaActions:
         tableId: debug.uiSpecs.metaActions
-        mobileColumnKeys: [key, value]
         columns:
           - key: key
             label: key
@@ -112,7 +109,6 @@ entities:
 
       headerActions:
         tableId: debug.uiSpecs.headerActions
-        mobileColumnKeys: [kind, label]
         columns:
           - key: kind
             label: kind
@@ -141,7 +137,6 @@ entities:
 
       listColumns:
         tableId: debug.uiSpecs.listColumns
-        mobileColumnKeys: [key, label]
         columns:
           - key: key
             label: key
@@ -166,7 +161,6 @@ entities:
 
       fields:
         tableId: debug.uiSpecs.fields
-        mobileColumnKeys: [key, label]
         columns:
           - key: key
             label: key
@@ -191,7 +185,6 @@ entities:
 
       listConfig:
         tableId: debug.uiSpecs.listConfig
-        mobileColumnKeys: [key, value]
         columns:
           - key: key
             label: key
@@ -204,7 +197,6 @@ entities:
 
       formSections:
         tableId: debug.uiSpecs.formSections
-        mobileColumnKeys: [id, title]
         columns:
           - key: id
             label: id
@@ -233,7 +225,6 @@ entities:
 
       relations:
         tableId: debug.uiSpecs.relations
-        mobileColumnKeys: [key, kind]
         columns:
           - key: key
             label: key
@@ -262,7 +253,6 @@ entities:
 
       detailExtras:
         tableId: debug.uiSpecs.detailExtras
-        mobileColumnKeys: [kind, title]
         columns:
           - key: kind
             label: kind
