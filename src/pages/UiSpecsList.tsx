@@ -18,6 +18,10 @@ type EntityRow = {
   tableId: string;
   listColumnCount: number;
   fieldCount: number;
+  formSectionCount: number;
+  relationCount: number;
+  headerActionCount: number;
+  detailExtrasCount: number;
 };
 
 function asRecord(v: unknown): Record<string, any> | null {
@@ -108,6 +112,10 @@ export function UiSpecsList({ onNavigate }: UiSpecsListProps) {
       const list = asRecord(entity.list) || null;
       const storage = asRecord(entity.storage) || null;
       const fields = asRecord(entity.fields) || null;
+      const form = asRecord(entity.form) || null;
+      const relations = asRecord(entity.relations) || null;
+      const meta = asRecord(entity.meta) || null;
+      const detail = asRecord(entity.detail) || null;
 
       const drizzleTable =
         (storage && typeof storage.drizzleTable === 'string' ? storage.drizzleTable : '') ||
@@ -116,6 +124,10 @@ export function UiSpecsList({ onNavigate }: UiSpecsListProps) {
 
       const listColumns = normalizeColumns(list?.columns);
       const fieldCount = fields ? Object.keys(fields).length : 0;
+      const formSections = Array.isArray(form?.sections) ? (form?.sections as any[]) : [];
+      const relationCount = relations ? Object.keys(relations).length : 0;
+      const headerActionCount = Array.isArray(meta?.headerActions) ? (meta?.headerActions as any[]).length : 0;
+      const detailExtrasCount = Array.isArray(detail?.extras) ? (detail?.extras as any[]).length : 0;
 
       out.push({
         id: entityKey, // use entityKey as ID
@@ -124,6 +136,10 @@ export function UiSpecsList({ onNavigate }: UiSpecsListProps) {
         tableId,
         listColumnCount: listColumns.length,
         fieldCount,
+        formSectionCount: formSections.length,
+        relationCount,
+        headerActionCount,
+        detailExtrasCount,
       });
     }
     return out;

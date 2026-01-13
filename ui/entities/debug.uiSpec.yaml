@@ -30,12 +30,20 @@ entities:
         - drizzleTable
         - listColumnCount
         - fieldCount
+        - formSectionCount
+        - relationCount
+        - headerActionCount
+        - detailExtrasCount
       initialColumnVisibility:
         entityKey: true
         tableId: true
         drizzleTable: true
         listColumnCount: true
         fieldCount: true
+        formSectionCount: false
+        relationCount: false
+        headerActionCount: false
+        detailExtrasCount: false
       initialSorting:
         - id: entityKey
           desc: false
@@ -60,9 +68,93 @@ entities:
           label: "# fields"
           sortable: true
           filterType: number
+        - key: formSectionCount
+          label: "# form sections"
+          sortable: true
+          filterType: number
+        - key: relationCount
+          label: "# relations"
+          sortable: true
+          filterType: number
+        - key: headerActionCount
+          label: "# header actions"
+          sortable: true
+          filterType: number
+        - key: detailExtrasCount
+          label: "# detail extras"
+          sortable: true
+          filterType: number
 
     detail:
       # Sub-tables for the detail view
+      metaRoutes:
+        tableId: debug.uiSpecs.metaRoutes
+        mobileColumnKeys: [key, path]
+        columns:
+          - key: key
+            label: key
+            sortable: true
+            filterType: string
+          - key: path
+            label: path
+            sortable: false
+            filterType: string
+
+      breadcrumbs:
+        tableId: debug.uiSpecs.breadcrumbs
+        mobileColumnKeys: [label, href]
+        columns:
+          - key: label
+            label: label
+            sortable: true
+            filterType: string
+          - key: href
+            label: href
+            sortable: false
+            filterType: string
+
+      metaActions:
+        tableId: debug.uiSpecs.metaActions
+        mobileColumnKeys: [key, value]
+        columns:
+          - key: key
+            label: key
+            sortable: true
+            filterType: string
+          - key: value
+            label: value
+            sortable: false
+            filterType: string
+
+      headerActions:
+        tableId: debug.uiSpecs.headerActions
+        mobileColumnKeys: [kind, label]
+        columns:
+          - key: kind
+            label: kind
+            sortable: true
+            filterType: string
+          - key: label
+            label: label
+            sortable: false
+            filterType: string
+          - key: actionKey
+            label: actionKey
+            sortable: false
+            filterType: string
+          - key: icon
+            label: icon
+            sortable: false
+            filterType: string
+          - key: platforms
+            label: platforms
+            sortable: false
+            filterType: string
+          - key: visibility
+            label: visibility
+            sortable: false
+            filterType: string
+
       listColumns:
         tableId: debug.uiSpecs.listColumns
         mobileColumnKeys: [key, label]
@@ -110,5 +202,113 @@ entities:
             filterType: boolean
           - key: extra
             label: extra
+            sortable: false
+            filterType: string
+
+      listConfig:
+        tableId: debug.uiSpecs.listConfig
+        mobileColumnKeys: [key, value]
+        columns:
+          - key: key
+            label: key
+            sortable: true
+            filterType: string
+          - key: value
+            label: value
+            sortable: false
+            filterType: string
+
+      formSections:
+        tableId: debug.uiSpecs.formSections
+        mobileColumnKeys: [id, title]
+        columns:
+          - key: id
+            label: id
+            sortable: true
+            filterType: string
+          - key: title
+            label: title
+            sortable: false
+            filterType: string
+          - key: layout
+            label: layout
+            sortable: false
+            filterType: string
+          - key: widget
+            label: widget
+            sortable: false
+            filterType: string
+          - key: relation
+            label: relation
+            sortable: false
+            filterType: string
+          - key: fields
+            label: fields
+            sortable: false
+            filterType: string
+
+      relations:
+        tableId: debug.uiSpecs.relations
+        mobileColumnKeys: [key, kind]
+        columns:
+          - key: key
+            label: key
+            sortable: true
+            filterType: string
+          - key: kind
+            label: kind
+            sortable: false
+            filterType: string
+          - key: persist
+            label: persist
+            sortable: false
+            filterType: string
+          - key: primary
+            label: primary
+            sortable: false
+            filterType: string
+          - key: uiTitle
+            label: ui.title
+            sortable: false
+            filterType: string
+          - key: fieldCount
+            label: "# ui fields"
+            sortable: true
+            filterType: number
+
+      detailExtras:
+        tableId: debug.uiSpecs.detailExtras
+        mobileColumnKeys: [kind, title]
+        columns:
+          - key: kind
+            label: kind
+            sortable: true
+            filterType: string
+          - key: title
+            label: title
+            sortable: false
+            filterType: string
+          - key: entityType
+            label: entityType
+            sortable: false
+            filterType: string
+          - key: tableId
+            label: tableId
+            sortable: false
+            filterType: string
+          - key: platforms
+            label: platforms
+            sortable: false
+            filterType: string
+          - key: query
+            label: query
+            sortable: false
+            filterType: string
+          - key: createRoute
+            label: createRoute
+            sortable: false
+            filterType: string
+          - key: emptyMessage
+            label: emptyMessage
             sortable: false
             filterType: string

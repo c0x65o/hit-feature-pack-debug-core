@@ -85,11 +85,19 @@ export function UiSpecsList({ onNavigate }) {
             const list = asRecord(entity.list) || null;
             const storage = asRecord(entity.storage) || null;
             const fields = asRecord(entity.fields) || null;
+            const form = asRecord(entity.form) || null;
+            const relations = asRecord(entity.relations) || null;
+            const meta = asRecord(entity.meta) || null;
+            const detail = asRecord(entity.detail) || null;
             const drizzleTable = (storage && typeof storage.drizzleTable === 'string' ? storage.drizzleTable : '') ||
                 (typeof entity.drizzleTable === 'string' ? String(entity.drizzleTable) : '');
             const tableId = list && typeof list.tableId === 'string' ? list.tableId : '';
             const listColumns = normalizeColumns(list?.columns);
             const fieldCount = fields ? Object.keys(fields).length : 0;
+            const formSections = Array.isArray(form?.sections) ? form?.sections : [];
+            const relationCount = relations ? Object.keys(relations).length : 0;
+            const headerActionCount = Array.isArray(meta?.headerActions) ? (meta?.headerActions).length : 0;
+            const detailExtrasCount = Array.isArray(detail?.extras) ? (detail?.extras).length : 0;
             out.push({
                 id: entityKey, // use entityKey as ID
                 entityKey,
@@ -97,6 +105,10 @@ export function UiSpecsList({ onNavigate }) {
                 tableId,
                 listColumnCount: listColumns.length,
                 fieldCount,
+                formSectionCount: formSections.length,
+                relationCount,
+                headerActionCount,
+                detailExtrasCount,
             });
         }
         return out;
