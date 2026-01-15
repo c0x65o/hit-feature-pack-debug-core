@@ -10,27 +10,27 @@ routes:
     page: ServerStats
     roles: []
     default_roles_allow: [admin]
-    authz: { entity: debug, verb: read }
+    authz: { entity: debug, verb: read, require_action: debug-core.server-stats.access, show_pages: true }
   - path: /admin/debug/db-stats
     page: DbStats
     roles: []
     default_roles_allow: [admin]
-    authz: { entity: debug, verb: read }
+    authz: { entity: debug, verb: read, require_action: debug-core.db-stats.access, show_pages: true }
   - path: /admin/debug/dashboard-state
     page: DashboardState
     roles: []
     default_roles_allow: [admin]
-    authz: { entity: debug, verb: read }
+    authz: { entity: debug, verb: read, require_action: debug-core.dashboard-state.access, show_pages: true }
   - path: /admin/debug/ui-specs
     page: UiSpecsList
     roles: []
     default_roles_allow: [admin]
-    authz: { entity: debug, verb: read }
+    authz: { entity: debug, verb: read, require_action: debug-core.ui-specs.access, show_pages: true }
   - path: /admin/debug/ui-specs/[entityKey]
     page: UiSpecsDetail
     roles: []
     default_roles_allow: [admin]
-    authz: { entity: debug, verb: read }
+    authz: { entity: debug, verb: read, require_action: debug-core.ui-specs.detail.access, show_pages: true }
 
 # ─────────────────────────────────────────────────────────────────────────────
 # NAV - Navigation entries
@@ -96,6 +96,28 @@ api:
 # ─────────────────────────────────────────────────────────────────────────────
 permissions:
   actions:
+    # Debug pages with explicit access toggles.
+    - key: debug-core.server-stats.access
+      label: "Debug: Server Stats"
+      description: "Access debug server statistics."
+      default_enabled: false
+    - key: debug-core.db-stats.access
+      label: "Debug: DB Stats"
+      description: "Access debug database statistics."
+      default_enabled: false
+    - key: debug-core.dashboard-state.access
+      label: "Debug: Dashboard State"
+      description: "Access debug dashboard state."
+      default_enabled: false
+    - key: debug-core.ui-specs.access
+      label: "Debug: UI Specs"
+      description: "Access debug UI specs list."
+      default_enabled: false
+    - key: debug-core.ui-specs.detail.access
+      label: "Debug: UI Specs Detail"
+      description: "Access debug UI specs detail pages."
+      default_enabled: false
+
     # Scope Policy Tree: debug-core (global) -> entity overrides.
     #
     # Scope modes:
