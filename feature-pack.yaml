@@ -100,18 +100,18 @@ permissions:
     #
     # Scope modes:
     # - none: deny all access for this verb/entity (hide pages + block APIs)
-    # - any: ignore scope (read everything)
+    # - all: ignore scope (read everything)
     # - own: only owned records (not applicable for debug - debug info doesn't have ownership)
     # - ldd: owner OR matching L/D/D (not applicable for debug - debug info doesn't have LDD fields)
     #
     # These are mutually exclusive per node; the Security Groups UI renders them as dropdowns.
-    # Note: Debug utilities are admin-only and don't have ownership or LDD fields, so only 'any' mode is meaningful.
+    # Note: Debug utilities are admin-only and don't have ownership or LDD fields, so only 'all' mode is meaningful.
     - key: debug-core.read.scope.none
       label: "Debug Core Read Scope = None"
       description: "Deny all debug read access."
       default_enabled: false
-    - key: debug-core.read.scope.any
-      label: "Debug Core Read Scope = Any"
+    - key: debug-core.read.scope.all
+      label: "Debug Core Read Scope = All"
       description: "Read all debug information regardless of scope."
       default_enabled: false
     - key: debug-core.read.scope.own
@@ -124,8 +124,8 @@ permissions:
       label: "Debug Core Debug Read Scope = None"
       description: "Deny all debug information read access."
       default_enabled: false
-    - key: debug-core.debug.read.scope.any
-      label: "Debug Core Debug Read Scope = Any"
+    - key: debug-core.debug.read.scope.all
+      label: "Debug Core Debug Read Scope = All"
       description: "Read debug information regardless of scope."
       default_enabled: false
     - key: debug-core.debug.read.scope.own
