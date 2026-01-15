@@ -1,6 +1,6 @@
 {
   "name": "@hit/feature-pack-debug-core",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Debug utilities for system administrators",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,9 +39,6 @@
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {
-    "@hit/feature-pack-auth-core": "file:../hit-feature-pack-auth-core"
-  },
   "peerDependencies": {
     "@hit/feature-pack-auth-core": "*",
     "@hit/ui-kit": "*",
@@ -54,6 +51,7 @@
     }
   },
   "devDependencies": {
+    "@hit/feature-pack-auth-core": "file:../hit-feature-pack-auth-core",
     "@hit/feature-pack-stubs": "file:../../../packages/hit-feature-pack-stubs",
     "@hit/ui-kit": "file:../../../packages/hit-ui-kit-ts",
     "@types/node": "^20",
