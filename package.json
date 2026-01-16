@@ -1,6 +1,6 @@
 {
   "name": "@hit/feature-pack-debug-core",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Debug utilities for system administrators",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
