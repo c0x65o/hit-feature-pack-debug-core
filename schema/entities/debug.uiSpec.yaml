@@ -15,6 +15,31 @@ entities:
       breadcrumbs:
         - { label: Debug, href: /admin/debug }
         - { label: UI Specs, href: /admin/debug/ui-specs }
+      actions:
+        allowCreate: false
+
+    # Schema-driven page security (used for EntityList/Detail/New/Edit).
+    # Debug is admin-only; scope is still enforced via debug-core.*.read.scope.* actions.
+    security:
+      list:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: true }
+      detail:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: true }
+      new:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: write, show_pages: true }
+      edit:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: write, show_pages: true }
+
+    api:
+      resource: ui-specs
 
     list:
       tableId: debug.uiSpecs
@@ -70,219 +95,15 @@ entities:
       detailExtrasCount: { type: number, label: "# detail extras", virtual: true }
 
     detail:
-      # Sub-tables for the detail view
-      metaRoutes:
-        tableId: debug.uiSpecs.metaRoutes
-        columns:
-          - key: key
-            label: key
-            sortable: true
-            filterType: string
-          - key: path
-            label: path
-            sortable: false
-            filterType: string
-
-      breadcrumbs:
-        tableId: debug.uiSpecs.breadcrumbs
-        columns:
-          - key: label
-            label: label
-            sortable: true
-            filterType: string
-          - key: href
-            label: href
-            sortable: false
-            filterType: string
-
-      metaActions:
-        tableId: debug.uiSpecs.metaActions
-        columns:
-          - key: key
-            label: key
-            sortable: true
-            filterType: string
-          - key: value
-            label: value
-            sortable: false
-            filterType: string
-
-      headerActions:
-        tableId: debug.uiSpecs.headerActions
-        columns:
-          - key: kind
-            label: kind
-            sortable: true
-            filterType: string
-          - key: label
-            label: label
-            sortable: false
-            filterType: string
-          - key: actionKey
-            label: actionKey
-            sortable: false
-            filterType: string
-          - key: icon
-            label: icon
-            sortable: false
-            filterType: string
-          - key: platforms
-            label: platforms
-            sortable: false
-            filterType: string
-          - key: visibility
-            label: visibility
-            sortable: false
-            filterType: string
-
-      listColumns:
-        tableId: debug.uiSpecs.listColumns
-        columns:
-          - key: key
-            label: key
-            sortable: true
-            filterType: string
-          - key: label
-            label: label
-            sortable: false
-            filterType: string
-          - key: filterType
-            label: filterType
-            sortable: false
-            filterType: string
-          - key: sortable
-            label: sortable
-            sortable: false
-            filterType: boolean
-          - key: reference
-            label: reference
-            sortable: false
-            filterType: string
-
-      fields:
-        tableId: debug.uiSpecs.fields
-        columns:
-          - key: key
-            label: key
-            sortable: true
-            filterType: string
-          - key: label
-            label: label
-            sortable: false
-            filterType: string
-          - key: type
-            label: type
-            sortable: false
-            filterType: string
-          - key: required
-            label: required
-            sortable: false
-            filterType: boolean
-          - key: extra
-            label: extra
-            sortable: false
-            filterType: string
-
-      listConfig:
-        tableId: debug.uiSpecs.listConfig
-        columns:
-          - key: key
-            label: key
-            sortable: true
-            filterType: string
-          - key: value
-            label: value
-            sortable: false
-            filterType: string
-
-      formSections:
-        tableId: debug.uiSpecs.formSections
-        columns:
-          - key: id
-            label: id
-            sortable: true
-            filterType: string
-          - key: title
-            label: title
-            sortable: false
-            filterType: string
-          - key: layout
-            label: layout
-            sortable: false
-            filterType: string
-          - key: widget
-            label: widget
-            sortable: false
-            filterType: string
-          - key: relation
-            label: relation
-            sortable: false
-            filterType: string
-          - key: fields
-            label: fields
-            sortable: false
-            filterType: string
-
-      relations:
-        tableId: debug.uiSpecs.relations
-        columns:
-          - key: key
-            label: key
-            sortable: true
-            filterType: string
-          - key: kind
-            label: kind
-            sortable: false
-            filterType: string
-          - key: persist
-            label: persist
-            sortable: false
-            filterType: string
-          - key: primary
-            label: primary
-            sortable: false
-            filterType: string
-          - key: uiTitle
-            label: ui.title
-            sortable: false
-            filterType: string
-          - key: fieldCount
-            label: "# ui fields"
-            sortable: true
-            filterType: number
-
-      detailExtras:
-        tableId: debug.uiSpecs.detailExtras
-        columns:
-          - key: kind
-            label: kind
-            sortable: true
-            filterType: string
-          - key: title
-            label: title
-            sortable: false
-            filterType: string
-          - key: entityType
-            label: entityType
-            sortable: false
-            filterType: string
-          - key: tableId
-            label: tableId
-            sortable: false
-            filterType: string
-          - key: platforms
-            label: platforms
-            sortable: false
-            filterType: string
-          - key: query
-            label: query
-            sortable: false
-            filterType: string
-          - key: createRoute
-            label: createRoute
-            sortable: false
-            filterType: string
-          - key: emptyMessage
-            label: emptyMessage
-            sortable: false
-            filterType: string
+      summaryFields:
+        - entityKey
+        - tableId
+        - drizzleTable
+        - fieldCount
+        - formSectionCount
+        - relationCount
+        - headerActionCount
+        - detailExtrasCount
+      extras:
+        - kind: uiSpecDetail
+          platforms: [web]

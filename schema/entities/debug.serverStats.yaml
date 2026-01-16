@@ -1,0 +1,47 @@
+version: 1
+
+entities:
+  debug.serverStats:
+    meta:
+      titleSingular: Server Stats
+      titlePlural: Server Stats
+      descriptionPlural: Runtime server statistics.
+      routes:
+        root: /admin/debug
+        list: /admin/debug/server-stats
+      breadcrumbs:
+        - { label: Debug, href: /admin/debug }
+        - { label: Server Stats, href: /admin/debug/server-stats }
+      actions:
+        allowCreate: false
+
+    security:
+      list:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: true }
+      detail:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+      new:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+      edit:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+
+    api:
+      resource: server-stats
+
+    list:
+      tableId: debug.serverStats
+      uiStateVersion: 1
+      widget: serverStats
+      columns:
+        - id
+
+    fields:
+      id: { type: text, label: ID, virtual: true }

@@ -9,6 +9,9 @@ export type ScopeEntity = 'debug';
  * - fallback: own
  *
  * Precedence if multiple are granted: most restrictive wins.
+ *
+ * Back-compat:
+ * - Treat `.scope.all` as `.scope.any` (debug-core originally used `all`).
  */
 export declare function resolveDebugCoreScopeMode(request: NextRequest, args: {
     entity?: ScopeEntity;

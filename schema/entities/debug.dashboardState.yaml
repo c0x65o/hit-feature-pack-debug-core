@@ -1,0 +1,47 @@
+version: 1
+
+entities:
+  debug.dashboardState:
+    meta:
+      titleSingular: Dashboard State
+      titlePlural: Dashboard State
+      descriptionPlural: Debug details for system dashboards.
+      routes:
+        root: /admin/debug
+        list: /admin/debug/dashboard-state
+      breadcrumbs:
+        - { label: Debug, href: /admin/debug }
+        - { label: Dashboard State, href: /admin/debug/dashboard-state }
+      actions:
+        allowCreate: false
+
+    security:
+      list:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: true }
+      detail:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+      new:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+      edit:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+
+    api:
+      resource: dashboard-state
+
+    list:
+      tableId: debug.dashboardState
+      uiStateVersion: 1
+      widget: dashboardState
+      columns:
+        - id
+
+    fields:
+      id: { type: text, label: ID, virtual: true }

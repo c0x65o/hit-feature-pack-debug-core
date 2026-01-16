@@ -7,30 +7,20 @@ description: Debug utilities for system administrators (server stats, database s
 # ─────────────────────────────────────────────────────────────────────────────
 routes:
   - path: /admin/debug/server-stats
-    page: ServerStats
-    roles: []
-    default_roles_allow: [admin]
-    authz: { entity: debug, verb: read, require_action: debug-core.server-stats.access, show_pages: true }
+    page: EntityList
+    params: { entityKey: debug.serverStats }
   - path: /admin/debug/db-stats
-    page: DbStats
-    roles: []
-    default_roles_allow: [admin]
-    authz: { entity: debug, verb: read, require_action: debug-core.db-stats.access, show_pages: true }
+    page: EntityList
+    params: { entityKey: debug.dbStats }
   - path: /admin/debug/dashboard-state
-    page: DashboardState
-    roles: []
-    default_roles_allow: [admin]
-    authz: { entity: debug, verb: read, require_action: debug-core.dashboard-state.access, show_pages: true }
+    page: EntityList
+    params: { entityKey: debug.dashboardState }
   - path: /admin/debug/ui-specs
-    page: UiSpecsList
-    roles: []
-    default_roles_allow: [admin]
-    authz: { entity: debug, verb: read, require_action: debug-core.ui-specs.access, show_pages: true }
+    page: EntityList
+    params: { entityKey: debug.uiSpec }
   - path: /admin/debug/ui-specs/[entityKey]
-    page: UiSpecsDetail
-    roles: []
-    default_roles_allow: [admin]
-    authz: { entity: debug, verb: read, require_action: debug-core.ui-specs.detail.access, show_pages: true }
+    page: EntityDetail
+    params: { entityKey: debug.uiSpec }
 
 # ─────────────────────────────────────────────────────────────────────────────
 # NAV - Navigation entries
@@ -82,14 +72,34 @@ api:
       methods: [GET]
       handler: "@hit/feature-pack-debug-core/server/api/server-stats"
       description: "Get server statistics (memory, CPU, disk, cgroup info). Admin only."
+    - path: /api/debug/server-stats/[id]
+      methods: [GET]
+      handler: "@hit/feature-pack-debug-core/server/api/server-stats-id"
+      description: "Get server statistics by id (alias for server stats). Admin only."
     - path: /api/debug/db-stats
       methods: [GET]
       handler: "@hit/feature-pack-debug-core/server/api/db-stats"
       description: "Get database statistics (table sizes, row counts, indexes). Admin only."
+    - path: /api/debug/db-stats/[id]
+      methods: [GET]
+      handler: "@hit/feature-pack-debug-core/server/api/db-stats-id"
+      description: "Get database statistics by id (alias for db stats). Admin only."
     - path: /api/debug/dashboard-state
       methods: [GET]
       handler: "@hit/feature-pack-debug-core/server/api/dashboard-state"
       description: "Get dashboard state debug info. Admin only."
+    - path: /api/debug/dashboard-state/[id]
+      methods: [GET]
+      handler: "@hit/feature-pack-debug-core/server/api/dashboard-state-id"
+      description: "Get dashboard state by id (alias for dashboard state). Admin only."
+    - path: /api/debug/ui-specs
+      methods: [GET]
+      handler: "@hit/feature-pack-debug-core/server/api/ui-specs"
+      description: "List merged UI specs from /hit-ui-specs.json. Admin only."
+    - path: /api/debug/ui-specs/[id]
+      methods: [GET]
+      handler: "@hit/feature-pack-debug-core/server/api/ui-specs-id"
+      description: "Get a UI spec by entity key (from /hit-ui-specs.json). Admin only."
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PERMISSIONS - Action definitions (for admin-core permissions UI + runtime checks)

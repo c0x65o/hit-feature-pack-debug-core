@@ -1,0 +1,47 @@
+version: 1
+
+entities:
+  debug.dbStats:
+    meta:
+      titleSingular: Database Stats
+      titlePlural: Database Stats
+      descriptionPlural: Database table size and row counts.
+      routes:
+        root: /admin/debug
+        list: /admin/debug/db-stats
+      breadcrumbs:
+        - { label: Debug, href: /admin/debug }
+        - { label: DB Stats, href: /admin/debug/db-stats }
+      actions:
+        allowCreate: false
+
+    security:
+      list:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: true }
+      detail:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+      new:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+      edit:
+        roles: []
+        default_roles_allow: [admin]
+        authz: { entity: debug, verb: read, show_pages: false }
+
+    api:
+      resource: db-stats
+
+    list:
+      tableId: debug.dbStats
+      uiStateVersion: 1
+      widget: dbStats
+      columns:
+        - id
+
+    fields:
+      id: { type: text, label: ID, virtual: true }

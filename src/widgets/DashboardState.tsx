@@ -41,10 +41,11 @@ export function DashboardState({ onNavigate }: DashboardStateProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = typeof document !== 'undefined' 
-          ? document.cookie.split(';').find(c => c.trim().startsWith('hit_token='))?.split('=')[1]
-          : null;
-        
+        const token =
+          typeof document !== 'undefined'
+            ? document.cookie.split(';').find((c) => c.trim().startsWith('hit_token='))?.split('=')[1]
+            : null;
+
         const headers: Record<string, string> = { 'Content-Type': 'application/json' };
         if (token) headers['Authorization'] = `Bearer ${token}`;
 
