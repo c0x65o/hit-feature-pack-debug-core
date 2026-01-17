@@ -40,8 +40,6 @@ entities:
       tableId: debug.dashboardState
       uiStateVersion: 1
       widget: dashboardState
-      columns:
-        - id
 
     fields:
       id: { type: text, label: ID, virtual: true }

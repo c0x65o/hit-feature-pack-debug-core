@@ -40,8 +40,6 @@ entities:
       tableId: debug.dbStats
       uiStateVersion: 1
       widget: dbStats
-      columns:
-        - id
 
     fields:
       id: { type: text, label: ID, virtual: true }
