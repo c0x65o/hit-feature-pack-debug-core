@@ -104,7 +104,7 @@ export function DbStats({ onNavigate }: DbStatsProps) {
               </label>
               <Input
                 value={schemaFilter}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSchemaFilter(e.target.value)}
+                onChange={(value: string) => setSchemaFilter(value)}
                 placeholder="All schemas"
               />
             </div>
@@ -114,8 +114,8 @@ export function DbStats({ onNavigate }: DbStatsProps) {
               </label>
               <Input
                 type="number"
-                value={limit}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLimit(Number.parseInt(e.target.value) || 200)}
+                value={String(limit)}
+                onChange={(value: string) => setLimit(Number.parseInt(value) || 200)}
                 min={1}
                 max={2000}
               />

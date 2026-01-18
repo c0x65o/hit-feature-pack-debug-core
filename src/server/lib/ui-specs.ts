@@ -6,6 +6,7 @@ export type HitUiSpecs = {
   version?: number;
   entities?: Record<string, any>;
   fieldTypes?: Record<string, any>;
+  workflows?: Record<string, any>;
 };
 
 export type UiSpecRow = {
